@@ -1,0 +1,65 @@
+node_modules
+
+# sst
+.sst
+.env
+
+# Temporary Files
+*.tmp
+*.swp
+*.log
+*.pid
+*.bak
+*.old
+
+# Go Specific
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+tmp/
+
+node_modules/
+.vscode/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.aws-sam
+server
+
+# golang backend
+deployment.zip
+
+# for turso local db development
+tursolocal
+
+packages/scripts/src/assets-output/**/*
+sst-env.d.ts
+**/sst-env.d.ts
+
+# file for testing qwik component
+**/sample/*

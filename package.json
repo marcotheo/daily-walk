@@ -1,0 +1,20 @@
+{
+  "name": "daily-walk",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prod": "sst deploy --stage production",
+    "preview": "sst deploy --stage preview",
+    "dev": "sst dev",
+    "prod-down": "sst remove --stage production",
+    "preview-down": "sst remove --stage preview",
+    "dev-down": "sst remove"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sst": "3.17.4"
+  }
+}

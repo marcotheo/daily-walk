@@ -63,3 +63,5 @@ sst-env.d.ts
 
 # file for testing qwik component
 **/sample/*
+
+**/.open-next

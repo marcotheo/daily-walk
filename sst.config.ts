@@ -3,9 +3,8 @@
 export default $config({
   app(input) {
     return {
-      name: "daily-walk",
+      name: process.env.APP_NAME ?? "daily-walk",
       removal: input?.stage === "production" ? "retain" : "remove",
-      protect: ["production"].includes(input?.stage),
       home: "aws",
     };
   },

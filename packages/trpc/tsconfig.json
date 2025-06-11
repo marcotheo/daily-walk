@@ -4,6 +4,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "baseUrl": ".",
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM"],
     "paths": {
       "@daily-walk/core/*": ["../core/src/*"]
     }

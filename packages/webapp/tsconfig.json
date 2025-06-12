@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@daily-walk/trpc/*": ["../trpc/src/*"]
+      "@daily-walk/trpc/*": ["../trpc/src/*"],
+      "@daily-walk/core/*": ["../core/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

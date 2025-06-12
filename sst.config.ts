@@ -9,8 +9,22 @@ export default $config({
     };
   },
   async run() {
-    new sst.aws.Nextjs("MyWeb", {
+    const app = new sst.aws.Nextjs("WebApp", {
       path: "packages/webapp",
     });
+
+    const table = new sst.aws.Dynamo("DynamoTable", {
+      fields: {
+        pk: "string",
+        sk: "string",
+      },
+      primaryIndex: { hashKey: "pk", rangeKey: "sk" },
+      ttl: "expireAt",
+    });
+
+    return {
+      webapp: app.url,
+      table: table.name,
+    };
   },
 });

@@ -1,13 +1,17 @@
 import { cn } from "@/lib/utils";
 import * as React from "react";
 
+import { DarkModeToggle } from "@/components/dark-mode-toggle";
+
 export interface IHeaderProps {}
 
 export default function Header(props: IHeaderProps) {
   return (
-    <div className={cn("bg-red-500 p-5", "flex justify-between")}>
+    <div className={cn("p-5 pt-8", "flex justify-between")}>
       <p>logo</p>
-      <div>dark mode</div>
+      <div>
+        <DarkModeToggle />
+      </div>
     </div>
   );
 }

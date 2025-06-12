@@ -5,18 +5,14 @@ export default async function Home() {
   const dailyVerse = await trpc.dailyVerse.getDailyVerse();
 
   return (
-    <HydrateClient>
-      <div className={cn("h-[75vh]", "flex justify-center items-center")}>
-        <div>
-          <h2 className="text-xl font-semibold">Daily Verse</h2>
-          <p className="mt-2 text-lg italic">
-            "{dailyVerse.data?.verse ?? "N/A"}"
-          </p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            – {dailyVerse.data?.reference ?? "N/A"}
-          </p>
-        </div>
+    <div className={cn("h-[75vh]", "flex justify-center items-center")}>
+      <div>
+        <h2 className="text-xl font-semibold">Daily Verse</h2>
+        <p className="mt-2 text-lg italic">"{dailyVerse.verse ?? "N/A"}"</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          – {dailyVerse.reference ?? "N/A"}
+        </p>
       </div>
-    </HydrateClient>
+    </div>
   );
 }

@@ -1,6 +1,8 @@
 export * as DailyVerse from "./daily-verse";
 
 import dayjs from "dayjs";
+
+import { OpenAI } from "./openai";
 import { DailyVerse as DailyVerseEntity } from "./electrodb";
 
 export const createDailyVerse = async (data: {
@@ -14,7 +16,21 @@ export const createDailyVerse = async (data: {
 export const getDailyVerse = async () => {
   const dateId = dayjs().format("YYYY-MM-DD");
 
-  return DailyVerseEntity.get({ dateId }).go({
+  const result = await DailyVerseEntity.get({ dateId }).go({
     attributes: ["verse", "reference"],
   });
+
+  if (result.data) return result.data;
+
+  const newDailyVerse = (await OpenAI.generateDailyVerse()) as NonNullable<
+    NonNullable<typeof result>["data"]
+  >;
+
+  await createDailyVerse({
+    dateId: dayjs().format("YYYY-MM-DD").toString(),
+    verse: newDailyVerse.verse,
+    reference: newDailyVerse.reference,
+  });
+
+  return newDailyVerse;
 };

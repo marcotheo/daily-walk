@@ -15,11 +15,11 @@ export function DarkModeToggle() {
   };
 
   return (
-    <Button variant="outline" size="icon" className="p-6" onClick={toggle}>
+    <Button variant="outline" size="icon" className="p-8" onClick={toggle}>
       <Sun
         className={cn(
           "h-[1.2rem] w-[1.2rem]",
-          "scale-150 rotate-0",
+          "scale-220 rotate-0",
           "transition-all dark:scale-0 dark:-rotate-90",
           "animate-fade-in-slide dark:animate-fade-out-slide duration-200"
         )}
@@ -28,7 +28,7 @@ export function DarkModeToggle() {
         className={cn(
           "absolute h-[1.2rem] w-[1.2rem]",
           "scale-0 rotate-90",
-          "transition-all dark:scale-150 dark:rotate-0",
+          "transition-all dark:scale-220 dark:rotate-0",
           "animate-fade-out-slide dark:animate-fade-in-slide dark:duration-200"
         )}
       />

@@ -4,8 +4,6 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
 
-export interface IHeaderProps {}
-
 const HeaderLogo = () => {
   return (
     <div className="">
@@ -27,7 +25,7 @@ const HeaderLogo = () => {
   );
 };
 
-export default function Header(props: IHeaderProps) {
+export default function Header() {
   return (
     <div className={cn("px-5", "flex justify-between items-center")}>
       <HeaderLogo />

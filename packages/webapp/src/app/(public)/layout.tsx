@@ -9,7 +9,13 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={cn("h-screen", "px-3 md:px-32", "flex flex-col")}>
+    <div
+      className={cn(
+        "h-screen",
+        "px-3 sm:px-10 md:px-24 lg:px-56",
+        "flex flex-col"
+      )}
+    >
       <Header />
       <div className={cn("flex flex-col", "grow overflow-auto", "max-lg:px-5")}>
         {children}

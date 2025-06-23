@@ -12,7 +12,7 @@ export default function Layout({
     <div
       className={cn(
         "h-screen",
-        "px-3 sm:px-10 md:px-24 lg:px-56",
+        // "px-3 sm:px-10 md:px-24 lg:px-56",
         "flex flex-col"
       )}
     >

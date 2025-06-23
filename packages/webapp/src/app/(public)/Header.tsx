@@ -27,7 +27,13 @@ const HeaderLogo = () => {
 
 export default function Header() {
   return (
-    <div className={cn("px-5", "flex justify-between items-center")}>
+    <div
+      className={cn(
+        "px-5",
+        "flex justify-between items-center",
+        "bg-transparent"
+      )}
+    >
       <HeaderLogo />
       <div>
         <DarkModeToggle />

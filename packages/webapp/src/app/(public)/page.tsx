@@ -1,6 +1,7 @@
 import { trpc } from "@/trpc/server";
 import { cn } from "@/lib/utils";
 import ModelViewer from "./modelviewer";
+import { Button } from "@/components/ui/button";
 
 export default async function Home() {
   const dailyVerse = await trpc.dailyVerse.getDailyVerse();
@@ -11,7 +12,7 @@ export default async function Home() {
         <ModelViewer />
       </div>
 
-      <div className="max-w-3xl">
+      <div className="max-w-3xl z-10 space-y-3">
         <h2 className="text-4xl font-semibold">Daily Verse</h2>
         <p className="mt-2 text-lg md:text-2xl italic">
           "{dailyVerse.verse ?? "N/A"}"
@@ -19,6 +20,7 @@ export default async function Home() {
         <p className="mt-1 text-sm md:text-lg text-muted-foreground">
           – {dailyVerse.reference ?? "N/A"}
         </p>
+        <Button>Reflection</Button>
       </div>
     </div>
   );

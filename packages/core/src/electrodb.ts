@@ -25,6 +25,10 @@ export const DailyVerse = new Entity(
         type: "string",
         required: true,
       },
+      reflection: {
+        type: "string",
+        required: true,
+      },
       createdAt: {
         type: "number",
         required: true,

@@ -1,12 +1,21 @@
 export * as OpenAI from "./openai";
 
-const cleanOpenAIResponse = (rawOutput: string) => {
-  // Remove code block wrappers like ```json and ```
-  return rawOutput
-    .replace(/^```json\s*/i, "")
-    .replace(/```$/, "")
-    .trim();
-};
+function cleanOpenAIResponse(output: string): string {
+  // Remove triple backtick code blocks if present
+  const match = output.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  const cleaned = match ? match[1] : output;
+
+  // Attempt basic validation
+  try {
+    JSON.parse(cleaned); // valid JSON? great, return it.
+    return cleaned;
+  } catch (err) {
+    console.warn("⚠️ Invalid JSON, falling back to repair logic");
+  }
+
+  // Fallback: don't attempt smart repair—just return raw so dev can inspect
+  return cleaned;
+}
 
 export const generateDailyVerse = async () => {
   if (!process.env.OPENAI_API_KEY) return null;
@@ -15,10 +24,17 @@ export const generateDailyVerse = async () => {
 
   const systemPrompt = `You are a daily bible verse generator`;
 
-  const userPrompt = `Generate a bible verse for today and return response in JSON format with this structure:
+  const userPrompt = `
+Generate a random Bible verse for today and a short reflection.
+
+The reflection must be Christ-centered, emotionally resonant, and no more than 2–3 paragraphs. Include a practical takeaway for daily life.
+
+Only respond in raw JSON — do not include markdown, code blocks, or extra explanation. The format must be:
+
 {
   "verse": "string",
   "reference": "string",
+  "reflection": "string"
 }
 `;
 

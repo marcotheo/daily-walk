@@ -44,6 +44,7 @@
 
   --animate-fade-in-slide: fade-in-slide 0.1s ease-out forwards;
   --animate-fade-out-slide: fade-out-slide 0.1s ease-out forwards;
+  --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
 
   @keyframes fade-in-slide {
     0% {
@@ -64,6 +65,17 @@
     100% {
       opacity: 0;
       transform: translateY(-10px);
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }

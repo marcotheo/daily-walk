@@ -1,26 +1,26 @@
-import { trpc } from "@/trpc/server";
+import { Suspense } from "react";
+
 import { cn } from "@/lib/utils";
-import ModelViewer from "./modelviewer";
-import { Button } from "@/components/ui/button";
+import ModelViewer from "./_components/modelviewer";
+import Hero from "./_components/hero";
+import Reflection from "./_components/reflection";
 
 export default async function Home() {
-  const dailyVerse = await trpc.dailyVerse.getDailyVerse();
-
   return (
-    <div className={cn("h-full relative", "flex justify-center items-center")}>
+    <div className={cn("grow relative", "flex flex-col")}>
       <div className="absolute w-full h-full">
         <ModelViewer />
       </div>
 
-      <div className="max-w-3xl z-10 space-y-3">
-        <h2 className="text-4xl font-semibold">Daily Verse</h2>
-        <p className="mt-2 text-lg md:text-2xl italic">
-          "{dailyVerse.verse ?? "N/A"}"
-        </p>
-        <p className="mt-1 text-sm md:text-lg text-muted-foreground">
-          – {dailyVerse.reference ?? "N/A"}
-        </p>
-        <Button>Reflection</Button>
+      <Suspense fallback={null}>
+        <Hero />
+      </Suspense>
+
+      <div
+        id="reflection"
+        className={cn("w-full min-h-full", "flex justify-center items-center")}
+      >
+        <Reflection />
       </div>
     </div>
   );

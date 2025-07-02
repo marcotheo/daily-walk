@@ -50,3 +50,40 @@ export const DailyVerse = new Entity(
   },
   { client, table: dynamodbTable }
 );
+
+export const LoginAttempts = new Entity(
+  {
+    model: {
+      entity: "login_attempts",
+      version: "1",
+      service: "daily-walk",
+    },
+    attributes: {
+      username: {
+        type: "string",
+        required: true,
+      },
+      attempts: {
+        type: "number",
+        required: true,
+      },
+      expireAt: {
+        type: "number",
+        required: true,
+      },
+    },
+    indexes: {
+      byUsername: {
+        pk: {
+          field: "pk",
+          composite: ["username"],
+        },
+        sk: {
+          field: "sk",
+          composite: [],
+        },
+      },
+    },
+  },
+  { client, table: dynamodbTable }
+);

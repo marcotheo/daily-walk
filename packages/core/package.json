@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {},
   "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.840.0",
     "@aws-sdk/client-dynamodb": "^3.828.0",
+    "aws-jwt-verify": "^5.1.0",
     "dayjs": "^1.11.13",
     "drizzle-orm": "^0.44.2",
     "electrodb": "^3.4.3"

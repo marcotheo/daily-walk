@@ -40,6 +40,34 @@ importers:
         specifier: ^20
         version: 20.19.0
 
+  packages/functions:
+    dependencies:
+      '@aws-sdk/client-cognito-identity-provider':
+        specifier: ^3.840.0
+        version: 3.840.0
+      '@aws-sdk/client-dynamodb':
+        specifier: ^3.828.0
+        version: 3.828.0
+      aws-jwt-verify:
+        specifier: ^5.1.0
+        version: 5.1.0
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
+      drizzle-orm:
+        specifier: ^0.44.2
+        version: 0.44.2
+      electrodb:
+        specifier: ^3.4.3
+        version: 3.4.3(@aws-sdk/client-dynamodb@3.828.0)
+    devDependencies:
+      '@types/aws-lambda':
+        specifier: ^8
+        version: 8.10.150
+      '@types/node':
+        specifier: ^20
+        version: 20.19.0
+
   packages/trpc:
     dependencies:
       '@trpc/react-query':
@@ -1084,6 +1112,9 @@ packages:
 
   '@tybys/wasm-util@0.9.0':
     resolution: {integrity: sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw==}
+
+  '@types/aws-lambda@8.10.150':
+    resolution: {integrity: sha512-AX+AbjH/rH5ezX1fbK8onC/a+HyQHo7QGmvoxAE42n22OsciAxvZoZNEr22tbXs8WfP1nIsBjKDpgPm3HjOZbA==}
 
   '@types/draco3d@1.4.10':
     resolution: {integrity: sha512-AX22jp8Y7wwaBgAixaSvkoG4M/+PlAcm3Qs4OW8yT9DM4xUpWKeFhLueTAyZF39pviAdcDdeJoACapiAceqNcw==}
@@ -4666,6 +4697,8 @@ snapshots:
     dependencies:
       tslib: 2.8.1
     optional: true
+
+  '@types/aws-lambda@8.10.150': {}
 
   '@types/draco3d@1.4.10': {}
 

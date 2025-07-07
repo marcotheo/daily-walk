@@ -25,12 +25,6 @@ export const authRouter = createTRPCRouter({
 
       const result = await signInUser(input.username, input.password);
 
-      if (result.ChallengeName === "NEW_PASSWORD_REQUIRED" && !!result.Session)
-        return {
-          changePassword: true,
-          session: result.Session,
-        };
-
       if (
         result.AuthenticationResult?.AccessToken &&
         result.AuthenticationResult.RefreshToken

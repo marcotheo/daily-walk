@@ -4,6 +4,7 @@ import {
   CognitoIdentityProviderClient,
   InitiateAuthCommand,
   AuthFlowType,
+  SignUpCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { CognitoJwtVerifier } from "aws-jwt-verify";
 import crypto from "crypto";
@@ -24,6 +25,29 @@ const generateHash = (username: string) => {
   const gen_hmac = data.digest("base64");
 
   return gen_hmac;
+};
+
+export const createUserAccount = async (username: string, password: string) => {
+  const secretHash = generateHash(username);
+
+  const command = new SignUpCommand({
+    ClientId: poolClientId,
+    Username: username,
+    Password: password,
+    SecretHash: secretHash,
+    UserAttributes: [
+      {
+        Name: "email",
+        Value: username,
+      },
+    ],
+  });
+
+  const result = await client.send(command);
+
+  return {
+    userId: result.UserSub,
+  };
 };
 
 export const signInUser = async (username: string, password: string) => {

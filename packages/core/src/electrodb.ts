@@ -87,3 +87,41 @@ export const LoginAttempts = new Entity(
   },
   { client, table: dynamodbTable }
 );
+
+export const Users = new Entity(
+  {
+    model: {
+      entity: "users",
+      version: "1",
+      service: "daily-walk",
+    },
+    attributes: {
+      username: {
+        type: "string",
+        required: true,
+      },
+      userId: {
+        type: "string",
+        required: true,
+      },
+      createdAt: {
+        type: "number",
+        required: true,
+        default: dayjs().unix(),
+      },
+    },
+    indexes: {
+      byUsername: {
+        pk: {
+          field: "pk",
+          composite: ["username"],
+        },
+        sk: {
+          field: "sk",
+          composite: [],
+        },
+      },
+    },
+  },
+  { client, table: dynamodbTable }
+);

@@ -2,6 +2,7 @@ import { z } from "zod";
 import { baseProcedure, createTRPCRouter } from "../init";
 import { dailyVerseRouter } from "./daily-verse";
 import { authRouter } from "./auth";
+import { usersRouter } from "./users";
 
 export const appRouter = createTRPCRouter({
   hello: baseProcedure
@@ -17,6 +18,7 @@ export const appRouter = createTRPCRouter({
     }),
 
   dailyVerse: dailyVerseRouter,
+  users: usersRouter,
   auth: authRouter,
 });
 

@@ -9,41 +9,7 @@ export default $config({
     };
   },
   async run() {
-    const pool = new aws.cognito.UserPool("UserPool", {
-      autoVerifiedAttributes: ["email"],
-      usernameAttributes: ["email"],
-      emailConfiguration: {
-        emailSendingAccount: "COGNITO_DEFAULT", // Use Cognito's default email sending
-      },
-      verificationMessageTemplate: {
-        defaultEmailOption: "CONFIRM_WITH_CODE",
-        emailMessage: "Your verification code is {####}.",
-        emailSubject: "Your verification code",
-        smsMessage: "Your verification code is {####}.",
-      },
-    });
-
-    new aws.cognito.UserPoolClient("UserPoolClient", {
-      userPoolId: pool.id,
-      explicitAuthFlows: [
-        "ALLOW_USER_PASSWORD_AUTH",
-        "ALLOW_REFRESH_TOKEN_AUTH",
-      ],
-      tokenValidityUnits: {
-        accessToken: "minutes",
-        idToken: "minutes",
-        refreshToken: "hours",
-      },
-      accessTokenValidity: 10,
-      idTokenValidity: 10,
-      refreshTokenValidity: 3,
-      generateSecret: true,
-
-      // google or 3rd party logins
-      // allowedOauthFlows: ["code"],
-      // allowedOauthScopes: ["email", "openid", "profile"],
-      // supportedIdentityProviders: ["COGNITO", "Google"],
-    });
+    const userPool = await import("./infra/cognito");
 
     const app = new sst.aws.Nextjs("WebApp", {
       path: "packages/webapp",
@@ -61,7 +27,7 @@ export default $config({
     return {
       webapp: app.url,
       table: table.name,
-      userPool: pool.id,
+      userPool: userPool.pool.id,
     };
   },
 });

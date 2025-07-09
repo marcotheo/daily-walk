@@ -4,8 +4,8 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
 import { Button } from "@/components/ui/button";
-import { SideNav } from "./sidenav";
-import HeaderLogo from "./headerlogo";
+import SideBarToggle from "./sidebar-toggle";
+import HeaderLogo from "./header-logo";
 
 export default function Header() {
   return (
@@ -19,7 +19,9 @@ export default function Header() {
       <HeaderLogo />
 
       <div className={cn("space-x-0 md:space-x-2", "flex items-end")}>
-        <SideNav />
+        <div className="lg:hidden">
+          <SideBarToggle />
+        </div>
 
         <div className={cn("space-x-2", "flex items-end", "max-lg:hidden")}>
           <Link href="/login">

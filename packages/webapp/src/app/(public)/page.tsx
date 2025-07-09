@@ -1,9 +1,9 @@
 import { trpc } from "@/trpc/server";
 import { cn } from "@/lib/utils";
 
-import ModelViewer from "./_components/modelviewer";
-import Hero from "./_components/hero";
-import Reflection from "./_components/reflection";
+import ModelViewer from "./_components/home/modelviewer";
+import Hero from "./_components/home/hero";
+import Reflection from "./_components/home/reflection";
 
 export default async function Home() {
   const dailyVerse = await trpc.dailyVerse.getDailyVerse();

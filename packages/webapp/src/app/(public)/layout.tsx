@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Header from "./Header";
+import Header from "./_components/layout/Header";
 import { cn } from "@/lib/utils";
 
 export default function Layout({

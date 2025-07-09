@@ -1,11 +1,11 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MenuIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
 import { Button } from "@/components/ui/button";
+import { SideNav } from "./sidenav";
 
 const HeaderLogo = () => {
   return (
@@ -59,9 +59,7 @@ export default function Header() {
       <HeaderLogo />
 
       <div className={cn("space-x-0 md:space-x-2", "flex items-end")}>
-        <Button variant="ghost" size="icon" className="p-[1.6rem] lg:hidden">
-          <MenuIcon className={cn("size-7")} />
-        </Button>
+        <SideNav />
 
         <div className={cn("space-x-2", "flex items-end", "max-lg:hidden")}>
           <Link href="/login">

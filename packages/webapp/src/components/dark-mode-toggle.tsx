@@ -15,7 +15,7 @@ export function DarkModeToggle() {
   };
 
   return (
-    <Button variant="outline" size="icon" className="p-8" onClick={toggle}>
+    <Button variant="ghost" size="icon" className="p-[1.6rem]" onClick={toggle}>
       <Sun
         className={cn(
           "h-[1.2rem] w-[1.2rem]",

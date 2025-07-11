@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeaderLogo() {
   return (
-    <>
+    <Link href="/">
       <div className="max-md:hidden">
         <Image
           src="/logo-dark-mode.png"
@@ -36,6 +37,6 @@ export default function HeaderLogo() {
           className="block dark:hidden"
         />
       </div>
-    </>
+    </Link>
   );
 }

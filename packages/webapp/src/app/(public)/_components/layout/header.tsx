@@ -33,7 +33,7 @@ export default function Header() {
             </Button>
           </Link>
 
-          <Link href="/login">
+          <Link href="/signup">
             <Button
               className={cn(
                 "h-full py-4 min-w-24",

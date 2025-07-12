@@ -27,18 +27,18 @@ const generateHash = (username: string) => {
   return gen_hmac;
 };
 
-export const createUserAccount = async (username: string, password: string) => {
-  const secretHash = generateHash(username);
+export const createUserAccount = async (email: string, password: string) => {
+  const secretHash = generateHash(email);
 
   const command = new SignUpCommand({
     ClientId: poolClientId,
-    Username: username,
+    Username: email,
     Password: password,
     SecretHash: secretHash,
     UserAttributes: [
       {
         Name: "email",
-        Value: username,
+        Value: email,
       },
     ],
   });
@@ -50,13 +50,13 @@ export const createUserAccount = async (username: string, password: string) => {
   };
 };
 
-export const signInUser = async (username: string, password: string) => {
+export const signInUser = async (email: string, password: string) => {
   const command = new InitiateAuthCommand({
     AuthFlow: AuthFlowType.USER_PASSWORD_AUTH,
     ClientId: poolClientId,
     AuthParameters: {
-      USERNAME: username,
-      SECRET_HASH: generateHash(username),
+      USERNAME: email,
+      SECRET_HASH: generateHash(email),
       PASSWORD: password,
     },
   });

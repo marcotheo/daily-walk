@@ -1,23 +1,52 @@
-import { z } from "zod";
 import { TRPCError } from "@trpc/server";
+import * as v from "valibot";
 
 import { createUserAccount } from "@daily-walk/core/cognito";
+import { RegexValidations } from "@daily-walk/core/util";
 import { baseProcedure, createTRPCRouter } from "../init";
 import { Users } from "@daily-walk/core/electrodb";
 
 export const usersRouter = createTRPCRouter({
-  signIn: baseProcedure
+  createAccount: baseProcedure
     .input(
-      z.object({
-        username: z.string(),
-        password: z.string(),
+      v.object({
+        email: v.pipe(
+          v.string(),
+          v.nonEmpty("Please enter your email."),
+          v.email("The email address is badly formatted.")
+        ),
+        password: v.pipe(
+          v.string(),
+          v.nonEmpty("Please enter your password."),
+          v.minLength(8, "Your password must have 8 characters or more."),
+          v.maxLength(
+            64,
+            "Your password must not have more than 64 characters"
+          ),
+          v.regex(
+            RegexValidations.hasSpecialChar,
+            "Your password must have special character"
+          ),
+          v.regex(
+            RegexValidations.hasLowerCase,
+            "Your password must have lower case"
+          ),
+          v.regex(
+            RegexValidations.hasUpperCase,
+            "Your password must have upper case"
+          ),
+          v.regex(
+            RegexValidations.hasNumber,
+            "Your password must have a number"
+          )
+        ),
       })
     )
     .mutation(async ({ input }) => {
       try {
         console.info("users_CreateAccount() :: Creating Account");
 
-        const checkUser = await Users.get({ username: input.username }).go({
+        const checkUser = await Users.get({ username: input.email }).go({
           attributes: ["username"],
         });
 
@@ -27,12 +56,12 @@ export const usersRouter = createTRPCRouter({
             message: "User already exists",
           });
 
-        const result = await createUserAccount(input.username, input.password);
+        const result = await createUserAccount(input.email, input.password);
 
         if (result.userId)
           await Users.put({
             userId: result.userId,
-            username: input.username,
+            username: input.email,
           }).go();
 
         console.info("users_CreateAccount() :: Creating Account Successful");

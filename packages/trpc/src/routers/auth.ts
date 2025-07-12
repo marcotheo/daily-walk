@@ -1,5 +1,5 @@
-import { z } from "zod";
 import dayjs from "dayjs";
+import * as v from "valibot";
 
 import { signInUser } from "@daily-walk/core/cognito";
 import { LoginAttempts } from "@daily-walk/core/electrodb";
@@ -8,22 +8,22 @@ import { baseProcedure, createTRPCRouter } from "../init";
 export const authRouter = createTRPCRouter({
   signIn: baseProcedure
     .input(
-      z.object({
-        username: z.string(),
-        password: z.string(),
+      v.object({
+        email: v.pipe(v.string(), v.nonEmpty("Please enter your email.")),
+        password: v.pipe(v.string(), v.nonEmpty("Please enter your password.")),
       })
     )
     .mutation(async ({ input, ctx }) => {
       console.info("auth_SignIn() :: Signing In");
 
       const loginAttempt = await LoginAttempts.get({
-        username: input.username,
+        username: input.email,
       }).go({ attributes: ["attempts"] });
 
       if (!!loginAttempt.data?.attempts && loginAttempt.data.attempts >= 3)
         throw new Error("Max Attempt reached");
 
-      const result = await signInUser(input.username, input.password);
+      const result = await signInUser(input.email, input.password);
 
       if (
         result.AuthenticationResult?.AccessToken &&

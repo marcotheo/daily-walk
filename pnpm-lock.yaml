@@ -85,9 +85,9 @@ importers:
       react:
         specifier: ^19.0.0
         version: 19.1.0
-      zod:
-        specifier: ^3.25.57
-        version: 3.25.57
+      valibot:
+        specifier: ^1.1.0
+        version: 1.1.0(typescript@5.8.3)
     devDependencies:
       '@types/react':
         specifier: ^19

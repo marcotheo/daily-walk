@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import * as v from "valibot";
+import { toast } from "sonner";
 
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { Input } from "@/components/ui/input";
@@ -17,6 +18,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RegexValidations } from "@/lib/utils";
+import { trpc } from "@/trpc/client";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
 
 const schema = v.pipe(
   v.object({
@@ -69,6 +72,8 @@ const schema = v.pipe(
 type FormInputs = v.InferInput<typeof schema>;
 
 export default function SignUpForm() {
+  const userCreator = trpc.users.createAccount.useMutation();
+
   const form = useForm<FormInputs>({
     resolver: valibotResolver(schema),
     defaultValues: {
@@ -80,12 +85,29 @@ export default function SignUpForm() {
   });
 
   const onSubmit = (data: FormInputs) => {
-    console.log("Login Data:", data);
-    // Send to your login API here
+    userCreator.mutate(
+      {
+        email: data.email,
+        password: data.password,
+      },
+      {
+        onError: (error) => {
+          toast.error(error.message);
+        },
+        onSuccess: () => {
+          toast.success("Registration Successful");
+        },
+      }
+    );
   };
 
   return (
     <div>
+      <LoadingOverlay
+        open={userCreator.isPending}
+        message="Processing Registration"
+      />
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

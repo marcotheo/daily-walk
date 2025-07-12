@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { RegexValidations } from "@/lib/utils";
 
 const schema = v.pipe(
@@ -49,6 +48,7 @@ const schema = v.pipe(
       v.string(),
       v.nonEmpty("Please confirm your password.")
     ),
+    consent: v.boolean(),
   }),
   v.forward(
     v.check(
@@ -56,6 +56,13 @@ const schema = v.pipe(
       "Password do not match"
     ),
     ["confirmPassword"]
+  ),
+  v.forward(
+    v.check(
+      ({ consent }) => !!consent,
+      "Can't proceed withtout accepting terms"
+    ),
+    ["consent"]
   )
 );
 
@@ -68,6 +75,7 @@ export default function SignUpForm() {
       email: "",
       password: "",
       confirmPassword: "",
+      consent: false,
     },
   });
 
@@ -126,10 +134,31 @@ export default function SignUpForm() {
             )}
           />
 
-          <div className="flex items-center gap-3">
-            <Checkbox id="terms" />
-            <Label htmlFor="terms">Accept terms and conditions</Label>
-          </div>
+          <FormField
+            control={form.control}
+            name="consent"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <div className="flex items-center gap-2">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={(checked) => {
+                          return field.onChange(checked);
+                        }}
+                      />
+                    </FormControl>
+                    <FormLabel className="text-sm font-normal">
+                      Accept terms and conditions
+                    </FormLabel>
+                  </div>
+
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
 
           <Button type="submit" className="w-full">
             Create Account

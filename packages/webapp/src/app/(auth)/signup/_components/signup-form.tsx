@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import * as v from "valibot";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { valibotResolver } from "@hookform/resolvers/valibot";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -17,18 +17,58 @@ import {
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { RegexValidations } from "@/lib/utils";
 
-const schema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  confirmPassword: z.string().min(6, "Password must be at least 6 characters"),
-});
+const schema = v.pipe(
+  v.object({
+    email: v.pipe(
+      v.string(),
+      v.nonEmpty("Please enter your email."),
+      v.email("The email address is badly formatted.")
+    ),
+    password: v.pipe(
+      v.string(),
+      v.nonEmpty("Please enter your password."),
+      v.minLength(8, "Your password must have 8 characters or more."),
+      v.maxLength(64, "Your password must not have more than 64 characters"),
+      v.regex(
+        RegexValidations.hasSpecialChar,
+        "Your password must have special character"
+      ),
+      v.regex(
+        RegexValidations.hasLowerCase,
+        "Your password must have lower case"
+      ),
+      v.regex(
+        RegexValidations.hasUpperCase,
+        "Your password must have upper case"
+      ),
+      v.regex(RegexValidations.hasNumber, "Your password must have a number")
+    ),
+    confirmPassword: v.pipe(
+      v.string(),
+      v.nonEmpty("Please confirm your password.")
+    ),
+  }),
+  v.forward(
+    v.check(
+      ({ password, confirmPassword }) => password === confirmPassword,
+      "Password do not match"
+    ),
+    ["confirmPassword"]
+  )
+);
 
-type FormInputs = z.infer<typeof schema>;
+type FormInputs = v.InferInput<typeof schema>;
 
 export default function SignUpForm() {
   const form = useForm<FormInputs>({
-    resolver: zodResolver(schema),
+    resolver: valibotResolver(schema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
   const onSubmit = (data: FormInputs) => {
@@ -61,7 +101,7 @@ export default function SignUpForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="password" {...field} />
+                  <Input type="password" placeholder="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -75,7 +115,11 @@ export default function SignUpForm() {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="confirm password" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="confirm password"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

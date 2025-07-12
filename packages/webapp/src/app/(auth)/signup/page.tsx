@@ -4,11 +4,12 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import SignUpForm from "./_components/signup-form";
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
+import HeaderLogo from "@/app/(public)/_components/layout/header-logo";
 
 export default function Page() {
   return (
     <div className="h-screen w-full flex">
-      <div className={cn("w-1/2 xl:w-2/3 p-5", "max-lg:hidden")}>
+      <div className={cn("w-2/3 py-5 pl-5", "max-lg:hidden")}>
         <div
           className={cn("w-full h-full", "rounded-3xl", "bg-gray-400")}
         ></div>
@@ -16,15 +17,24 @@ export default function Page() {
 
       <div
         className={cn(
-          "w-full lg:w-1/2 xl:w-1/3",
+          "relative",
+          "w-full lg:w-1/3",
           "flex justify-center items-center"
         )}
       >
-        <div className="absolute top-5 right-5">
+        <div
+          className={cn(
+            "w-full absolute top-0",
+            "flex justify-between items-center",
+            "px-5 xl:px-16"
+          )}
+        >
+          <HeaderLogo />
+
           <DarkModeToggle />
         </div>
 
-        <div className="space-y-10">
+        <div className="space-y-10 w-full px-5 xl:px-16">
           <div className="space-y-1">
             <h1 className="text-2xl md:text-3xl">Create an account</h1>
 

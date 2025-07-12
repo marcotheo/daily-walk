@@ -18,7 +18,7 @@ export function DarkModeToggle() {
     <Button variant="ghost" size="icon" className="p-[1.6rem]" onClick={toggle}>
       <Sun
         className={cn(
-          "h-[1.2rem] w-[1.2rem]",
+          "size-5",
           "scale-220 rotate-0",
           "transition-all dark:scale-0 dark:-rotate-90",
           "animate-fade-in-slide dark:animate-fade-out-slide duration-200"
@@ -26,7 +26,7 @@ export function DarkModeToggle() {
       />
       <Moon
         className={cn(
-          "absolute h-[1.2rem] w-[1.2rem]",
+          "absolute size-5",
           "scale-0 rotate-90",
           "transition-all dark:scale-220 dark:rotate-0",
           "animate-fade-out-slide dark:animate-fade-in-slide dark:duration-200"

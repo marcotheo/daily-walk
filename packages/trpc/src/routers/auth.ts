@@ -65,7 +65,7 @@ export const authRouter = createTRPCRouter({
       }
 
       if (!!loginAttempt.data)
-        await LoginAttempts.delete({ username: input.username }).go();
+        await LoginAttempts.delete({ username: input.email }).go();
 
       console.info("auth_SignIn() :: Signing In Successful");
 

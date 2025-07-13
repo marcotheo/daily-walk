@@ -9,7 +9,9 @@ export default $config({
     };
   },
   async run() {
-    const userPool = await import("./infra/cognito");
+    const { createCognitoPool } = await import("./infra/cognito");
+
+    const cognitoResource = createCognitoPool();
 
     const app = new sst.aws.Nextjs("WebApp", {
       path: "packages/webapp",
@@ -27,7 +29,7 @@ export default $config({
     return {
       webapp: app.url,
       table: table.name,
-      userPool: userPool.pool.id,
+      ...cognitoResource,
     };
   },
 });

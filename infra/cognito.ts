@@ -28,7 +28,7 @@ export const createCognitoPool = () => {
     },
   });
 
-  pool.addClient("UserPoolClient", {
+  const client = pool.addClient("UserPoolClient", {
     transform: {
       client: {
         generateSecret: true,
@@ -50,4 +50,10 @@ export const createCognitoPool = () => {
       },
     },
   });
+
+  return {
+    poolId: pool.id,
+    poolClientId: client.id,
+    secret: client.secret,
+  };
 };

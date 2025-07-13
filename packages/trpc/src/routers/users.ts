@@ -44,13 +44,13 @@ export const usersRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        console.info("users_CreateAccount() :: Creating Account");
+        console.log("users_CreateAccount() :: Creating Account");
 
         const checkUser = await Users.get({ username: input.email }).go({
           attributes: ["username"],
         });
 
-        if (!checkUser.data?.username)
+        if (checkUser.data?.username)
           throw new TRPCError({
             code: "CONFLICT",
             message: "User already exists",
@@ -64,16 +64,25 @@ export const usersRouter = createTRPCRouter({
             username: input.email,
           }).go();
 
-        console.info("users_CreateAccount() :: Creating Account Successful");
+        console.log("users_CreateAccount() :: Creating Account Successful");
 
         return {
           userId: result.userId,
         };
-      } catch (err) {
+      } catch (err: any) {
+        console.log(err);
+
+        if (err.code || err.__type === "UsernameExistsException")
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: "Email already exists",
+          });
+
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to create user account",
-          cause: err, // Optional, useful for logging/debugging
+          message:
+            "We’re sorry, but we couldn’t complete your registration at this time. Please try again shortly",
+          cause: err,
         });
       }
     }),

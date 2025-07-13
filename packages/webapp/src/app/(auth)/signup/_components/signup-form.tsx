@@ -95,7 +95,10 @@ export default function SignUpForm() {
           toast.error(error.message);
         },
         onSuccess: () => {
-          toast.success("Registration Successful");
+          setTimeout(() => {
+            form.reset();
+            userCreator.reset();
+          }, 3000);
         },
       }
     );
@@ -104,8 +107,11 @@ export default function SignUpForm() {
   return (
     <div>
       <LoadingOverlay
-        open={userCreator.isPending}
+        open={userCreator.isPending || userCreator.isSuccess}
         message="Processing Registration"
+        success={userCreator.isSuccess}
+        successHeader="Registration successful!"
+        successMessage="Please check your email to verify your account."
       />
 
       <Form {...form}>

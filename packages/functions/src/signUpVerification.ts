@@ -11,7 +11,7 @@ export const handler: Handler<CustomMessageTriggerEvent> = async (event) => {
 
     const verificationURL = `${siteURL}/user/verify?username=${encodeURIComponent(
       email
-    )}&code=${encodeURIComponent(code)}`;
+    )}&code=${code}`;
 
     const newLine = "\r\n";
 

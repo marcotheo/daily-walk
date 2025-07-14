@@ -1,10 +1,11 @@
 import { TRPCError } from "@trpc/server";
 import * as v from "valibot";
 
-import { createUserAccount } from "@daily-walk/core/cognito";
+import { createUserAccount, confirmUserSignup } from "@daily-walk/core/cognito";
 import { RegexValidations } from "@daily-walk/core/util";
 import { baseProcedure, createTRPCRouter } from "../init";
 import { Users } from "@daily-walk/core/electrodb";
+import { throwCognitoErrors } from "./util";
 
 export const usersRouter = createTRPCRouter({
   createAccount: baseProcedure
@@ -84,6 +85,21 @@ export const usersRouter = createTRPCRouter({
             "We’re sorry, but we couldn’t complete your registration at this time. Please try again shortly",
           cause: err,
         });
+      }
+    }),
+  verifyAccount: baseProcedure
+    .input(
+      v.object({
+        username: v.pipe(v.string(), v.nonEmpty("Please enter your email.")),
+        code: v.pipe(v.string(), v.nonEmpty("Please enter verification code")),
+      })
+    )
+    .query(async ({ input }) => {
+      try {
+        await confirmUserSignup(input);
+        return true;
+      } catch (err: any) {
+        throwCognitoErrors(err.name);
       }
     }),
 });

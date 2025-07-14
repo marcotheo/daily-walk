@@ -5,6 +5,7 @@ import {
   InitiateAuthCommand,
   AuthFlowType,
   SignUpCommand,
+  ConfirmSignUpCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { CognitoJwtVerifier } from "aws-jwt-verify";
 import crypto from "crypto";
@@ -49,6 +50,27 @@ export const createUserAccount = async (email: string, password: string) => {
     userId: result.UserSub,
   };
 };
+
+export async function confirmUserSignup({
+  username,
+  code,
+}: {
+  username: string;
+  code: string;
+}) {
+  const secretHash = generateHash(username);
+
+  const command = new ConfirmSignUpCommand({
+    Username: username,
+    SecretHash: secretHash,
+    ConfirmationCode: code,
+    ClientId: poolClientId,
+  });
+
+  const response = await client.send(command);
+
+  return response.Session;
+}
 
 export const signInUser = async (email: string, password: string) => {
   const command = new InitiateAuthCommand({

@@ -7,6 +7,6 @@ export const getSiteUrl = () => {
     return $util.interpolate`${`https://${process.env.DOMAIN}`}`;
 
   return $util.interpolate`${`http://${
-    process.env.DOMAIN ?? "localhost:5173"
+    process.env.DOMAIN ?? "localhost:3000"
   }`}`;
 };

@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/trpc/client";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
+import { useAuth } from "@/store/useAuth";
 
 const schema = v.pipe(
   v.object({
@@ -34,6 +35,8 @@ type FormInputs = v.InferInput<typeof schema>;
 
 export default function SignUpForm() {
   const router = useRouter();
+  const { setLogin } = useAuth();
+
   const userLogin = trpc.auth.signIn.useMutation();
 
   const form = useForm<FormInputs>({
@@ -58,7 +61,7 @@ export default function SignUpForm() {
           form.reset();
           userLogin.reset();
           router.push("/");
-          // setLogin(true);
+          setLogin(true);
         },
       }
     );

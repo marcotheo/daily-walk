@@ -4,7 +4,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
 import { Button } from "@/components/ui/button";
-import SideBarToggle from "./sidebar-toggle";
+import SideBarToggle from "../sidebar/sidebar-toggle";
 import HeaderLogo from "./header-logo";
 
 export default function Header() {

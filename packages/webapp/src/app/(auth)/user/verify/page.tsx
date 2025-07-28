@@ -1,7 +1,7 @@
 import { Loader } from "lucide-react";
 import { Suspense } from "react";
 
-import HeaderLogo from "@/app/(public)/_components/layout/header-logo";
+import HeaderLogo from "@/app/(public)/_components/layout/header/header-logo";
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
 import { cn } from "@/lib/utils";
 import { Verifying } from "./content";

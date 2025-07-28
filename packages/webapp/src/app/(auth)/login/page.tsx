@@ -4,7 +4,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import LoginForm from "./_components/login-form";
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
-import HeaderLogo from "@/app/(public)/_components/layout/header-logo";
+import HeaderLogo from "@/app/(public)/_components/layout/header/header-logo";
 
 export default function Page() {
   return (

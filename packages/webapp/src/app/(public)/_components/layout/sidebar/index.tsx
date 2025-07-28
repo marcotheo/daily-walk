@@ -12,9 +12,9 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import HeaderLogo from "./header-logo";
+import HeaderLogo from "../header/header-logo";
 import { SideBarNavItem } from "./sidebar-item";
-import { HeaderLogoToggle } from "./header-logo-toggle";
+import { HeaderLogoToggle } from "../header/header-logo-toggle";
 
 const authItems = [
   {

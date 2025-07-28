@@ -73,7 +73,7 @@ function NavigationMenuTrigger({
         "rounded-md bg-background",
         "px-4 py-2 text-sm font-medium",
         "hover:bg-accent hover:text-accent-foreground",
-        "data-[state=open]:hover:bg-accent data-[state=open]:text-accent-foreground ",
+        "data-[state=open]:hover:bg-accent",
         "disabled:pointer-events-none disabled:opacity-50",
         "focus-visible:ring-ring/50 outline-none focus-visible:ring-[3px] focus-visible:outline-1",
         "duration-200 ease-in",

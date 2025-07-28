@@ -14,7 +14,7 @@ import {
 import UnAuthState from "./unauth-state";
 import { Button } from "@/components/ui/button";
 import AuthState from "./auth-state";
-// import Logout from "./logout";
+import Logout from "./logout";
 
 export default async function AccountNavigation() {
   return (
@@ -59,11 +59,11 @@ export default async function AccountNavigation() {
                   <User className={cn("size-7")} />
                 </NavigationMenuTrigger>
 
-                <NavigationMenuContent className="-translate-x-12">
-                  <ul className="grid min-w-[7rem] gap-4">
+                <NavigationMenuContent className="-translate-x-12 z-[9999]">
+                  <ul className="grid w-[200px] gap-4">
                     <li>
                       <NavigationMenuLink asChild>
-                        {/* <Logout /> */} asdasd
+                        <Logout />
                       </NavigationMenuLink>
                     </li>
                   </ul>

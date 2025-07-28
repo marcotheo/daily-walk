@@ -6,6 +6,8 @@ import {
   AuthFlowType,
   SignUpCommand,
   ConfirmSignUpCommand,
+  GlobalSignOutCommand,
+  RevokeTokenCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { CognitoJwtVerifier } from "aws-jwt-verify";
 import crypto from "crypto";
@@ -86,4 +88,26 @@ export const signInUser = async (email: string, password: string) => {
   const result = await client.send(command);
 
   return result;
+};
+
+export const revokeAccessToken = async (accessToken: string) => {
+  await client.send(
+    new GlobalSignOutCommand({
+      AccessToken: accessToken,
+    })
+  );
+
+  return true;
+};
+
+export const revokeRefreshToken = async (token: string) => {
+  const command = new RevokeTokenCommand({
+    ClientId: poolClientId,
+    ClientSecret: poolClientSecret,
+    Token: token,
+  });
+
+  await client.send(command);
+
+  return true;
 };

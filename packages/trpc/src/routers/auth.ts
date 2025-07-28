@@ -1,7 +1,12 @@
 import dayjs from "dayjs";
 import * as v from "valibot";
+import { TRPCError } from "@trpc/server";
 
-import { signInUser } from "@daily-walk/core/cognito";
+import {
+  revokeAccessToken,
+  revokeRefreshToken,
+  signInUser,
+} from "@daily-walk/core/cognito";
 import { LoginAttempts } from "@daily-walk/core/electrodb";
 import { baseProcedure, createTRPCRouter } from "../init";
 
@@ -73,8 +78,48 @@ export const authRouter = createTRPCRouter({
         success: true,
       };
     }),
-  signOut: baseProcedure.mutation((opts) => {
-    return true;
+  signOut: baseProcedure.mutation(async ({ ctx }) => {
+    try {
+      const atoken = ctx.getCookie("app_accessToken");
+      const rtoken = ctx.getCookie("app_refreshToken");
+
+      if (atoken) await revokeAccessToken(atoken);
+      if (rtoken) await revokeRefreshToken(rtoken);
+
+      const expiredDate = new Date(0); // Unix epoch time
+
+      ctx.setCookie("app_accessToken", "", {
+        httpOnly: true,
+        path: "/",
+        expires: expiredDate,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+      });
+
+      ctx.setCookie("app_refreshToken", "", {
+        httpOnly: true,
+        path: "/",
+        expires: expiredDate,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+      });
+
+      ctx.setCookie("app_refreshTokenExp", "", {
+        httpOnly: true,
+        path: "/",
+        expires: expiredDate,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+      });
+
+      return true;
+    } catch (err) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Something went wrong during sign out.",
+        cause: err,
+      });
+    }
   }),
 });
 

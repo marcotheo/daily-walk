@@ -6,6 +6,7 @@ import { DarkModeToggle } from "@/components/dark-mode-toggle";
 import { Button } from "@/components/ui/button";
 import SideBarToggle from "../sidebar/sidebar-toggle";
 import HeaderLogo from "./header-logo";
+import AccountNavigation from "./account-navigation";
 
 export default function Header() {
   return (
@@ -18,33 +19,12 @@ export default function Header() {
     >
       <HeaderLogo />
 
-      <div className={cn("space-x-0 md:space-x-2", "flex items-end")}>
+      <div className={cn("space-x-0 md:space-x-2", "flex")}>
         <div className="lg:hidden">
           <SideBarToggle />
         </div>
 
-        <div className={cn("space-x-2", "flex items-end", "max-lg:hidden")}>
-          <Link href="/login">
-            <Button
-              variant="outline"
-              className={cn("h-full py-4 min-w-24", "rounded-3xl")}
-            >
-              Log in
-            </Button>
-          </Link>
-
-          <Link href="/signup">
-            <Button
-              className={cn(
-                "h-full py-4 min-w-24",
-                "rounded-3xl",
-                "bg-secondary text-secondary-foreground hover:bg-secondary/90"
-              )}
-            >
-              Sign Up
-            </Button>
-          </Link>
-        </div>
+        <AccountNavigation />
 
         <DarkModeToggle />
       </div>

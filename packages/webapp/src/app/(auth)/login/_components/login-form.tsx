@@ -58,6 +58,7 @@ export default function SignUpForm() {
           toast.error(error.message);
         },
         onSuccess: () => {
+          toast.success("Successfully logged in to your account.");
           form.reset();
           userLogin.reset();
           router.push("/");

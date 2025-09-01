@@ -9,13 +9,24 @@
     "dev": "sst dev",
     "prod-down": "sst remove --stage production",
     "preview-down": "sst remove --stage preview",
-    "dev-down": "sst remove"
+    "dev-down": "sst remove",
+    "lint": "eslint . --cache --max-warnings=0",
+    "lint:fix": "eslint . --cache --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "sst": "3.17.4",
-    "@tsconfig/node18": "^18.2.4"
+    "@tsconfig/node18": "^18.2.4",
+    "sst": "3.17.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "eslint": "^9.28.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-unused-imports": "^4.2.0",
+    "globals": "^16.3.0",
+    "typescript-eslint": "^8.41.0"
   }
 }

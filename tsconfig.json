@@ -1,8 +1,9 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
-  "exclude": ["packages"],
-  "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "node"
-  }
+  "files": [],
+  "references": [
+    { "path": "./packages/webapp" },
+    { "path": "./packages/trpc" },
+    { "path": "./packages/functions" },
+    { "path": "./packages/core" }
+  ]
 }

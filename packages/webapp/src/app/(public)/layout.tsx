@@ -16,7 +16,9 @@ export default function Layout({
         className={cn(
           "h-screen w-full",
           // "px-3 sm:px-10 md:px-24 lg:px-56",
-          "flex flex-col"
+          "flex flex-col bg-gradient-to-br",
+          "from-slate-50 to-blue-50/30",
+          "dark:from-slate-900 dark:to-slate-800/30"
         )}
       >
         <Header />

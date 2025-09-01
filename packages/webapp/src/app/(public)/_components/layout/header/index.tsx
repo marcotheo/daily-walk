@@ -1,23 +1,58 @@
-import * as React from "react";
 import Link from "next/link";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import SideBarToggle from "../sidebar/sidebar-toggle";
-import HeaderLogo from "./header-logo";
 import AccountNavigation from "./account-navigation";
+import HeaderLogo from "./header-logo";
 
 export default function Header() {
   return (
     <div
       className={cn(
         "px-5 md:px-16 xl:px-24",
-        "flex justify-between items-center",
+        "flex items-center",
         "bg-transparent"
       )}
     >
       <HeaderLogo />
+
+      <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
+        <Link
+          href="/journal"
+          className={cn(
+            "px-4 py-2 rounded-lg font-medium text-sm",
+            "transition-all duration-200 ease-in-out",
+            "hover:bg-muted hover:text-foreground",
+            "text-muted-foreground hover:scale-105"
+          )}
+        >
+          Journal
+        </Link>
+        <Link
+          href="/prayer-wall"
+          className={cn(
+            "px-4 py-2 rounded-lg font-medium text-sm",
+            "transition-all duration-200 ease-in-out",
+            "hover:bg-muted hover:text-foreground",
+            "text-muted-foreground hover:scale-105"
+          )}
+        >
+          Prayer Wall
+        </Link>
+        <Link
+          href="/hope"
+          className={cn(
+            "px-4 py-2 rounded-lg font-medium text-sm",
+            "transition-all duration-200 ease-in-out",
+            "hover:bg-muted hover:text-foreground",
+            "text-muted-foreground hover:scale-105"
+          )}
+        >
+          Hope
+        </Link>
+      </nav>
 
       <div className={cn("space-x-0 md:space-x-2", "flex")}>
         <div className="lg:hidden">

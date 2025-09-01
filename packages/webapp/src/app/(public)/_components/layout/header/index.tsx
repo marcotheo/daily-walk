@@ -18,7 +18,7 @@ export default function Header() {
     >
       <HeaderLogo />
 
-      <nav className="hidden min-[980px]:flex items-center gap-1 flex-1 justify-center">
+      <nav className="hidden min-[980px]:flex items-center gap-1 absolute left-1/2 transform -translate-x-1/2">
         <Link
           href="/journal"
           className={cn(

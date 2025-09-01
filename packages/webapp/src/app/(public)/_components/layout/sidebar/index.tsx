@@ -1,5 +1,6 @@
 import { ClipboardPlusIcon, LogInIcon } from "lucide-react";
 import Link from "next/link";
+import { TbBook, TbPray, TbHeart } from "react-icons/tb";
 
 import {
   Sidebar,
@@ -15,6 +16,7 @@ import {
 import HeaderLogo from "../header/header-logo";
 import { SideBarNavItem } from "./sidebar-item";
 import { HeaderLogoToggle } from "../header/header-logo-toggle";
+import { HideAuth } from "./hide-auth";
 
 const authItems = [
   {
@@ -29,6 +31,24 @@ const authItems = [
   },
 ];
 
+const prayerAndCommunityItems = [
+  {
+    title: "Journal",
+    url: "/journal",
+    icon: TbBook,
+  },
+  {
+    title: "Prayer Wall",
+    url: "/prayer-wall",
+    icon: TbPray,
+  },
+  {
+    title: "Hope",
+    url: "/hope",
+    icon: TbHeart,
+  },
+];
+
 export function AppSidebar() {
   return (
     <Sidebar className="z-50">
@@ -37,12 +57,34 @@ export function AppSidebar() {
           <HeaderLogo />
         </HeaderLogoToggle>
       </SidebarHeader>
+
       <SidebarContent>
+        <HideAuth>
+          {" "}
+          <SidebarGroup>
+            <SidebarGroupLabel>Authentication</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {authItems.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SideBarNavItem>
+                      <Link href={item.url}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SideBarNavItem>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </HideAuth>
+
         <SidebarGroup>
-          <SidebarGroupLabel>Authentication</SidebarGroupLabel>
+          <SidebarGroupLabel>Prayer & Community</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {authItems.map((item) => (
+              {prayerAndCommunityItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SideBarNavItem>
                     <Link href={item.url}>

@@ -12,13 +12,13 @@ export default function Header() {
     <div
       className={cn(
         "px-5 md:px-16 xl:px-24",
-        "flex items-center",
+        "flex items-center justify-between",
         "bg-transparent"
       )}
     >
       <HeaderLogo />
 
-      <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
+      <nav className="hidden min-[980px]:flex items-center gap-1 flex-1 justify-center">
         <Link
           href="/journal"
           className={cn(
